@@ -1,0 +1,26 @@
+# Fichiers locaux et secrets
+.env
+.env.*
+!.env.example
+*.local
+
+# Photos envoyees dans l'application (conserver les regles Apache)
+/uploads/photos/*
+!/uploads/photos/.htaccess
+
+# Journaux et fichiers temporaires
+*.log
+*.tmp
+*.temp
+
+# Dependances et caches
+/vendor/
+/node_modules/
+/.phpunit.cache/
+
+# Fichiers generes par les editeurs et le systeme
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+Desktop.ini

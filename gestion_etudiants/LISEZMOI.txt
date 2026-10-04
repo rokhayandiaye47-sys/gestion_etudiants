@@ -1,0 +1,59 @@
+APPLICATION DE GESTION DES ÉTUDIANTS - ESGN
+===========================================
+
+Technologies : PHP (PDO), MySQL, HTML/CSS/JavaScript.
+Aucune bibliothèque externe : l'application fonctionne même sans connexion internet.
+
+
+1. INSTALLATION EN LOCAL (WAMP)
+-------------------------------
+a) Copie le dossier "gestion_etudiants" dans C:\wamp64\www\
+
+b) Démarre WAMP (icône verte), puis ouvre phpMyAdmin : http://localhost/phpmyadmin
+   - Onglet "SQL"
+   - Ouvre le fichier sql/gestion_etudiants.sql, copie tout son contenu, colle-le, clique sur "Exécuter".
+   (Cela crée la base "gestion_etudiants", les tables, le compte administrateur
+    et quelques filières et classes d'exemple.)
+
+c) Si ton MySQL a un mot de passe pour "root", ouvre config/database.php et renseigne-le.
+   (Par défaut sous WAMP : utilisateur root, mot de passe vide.)
+
+d) Ouvre : http://localhost/gestion_etudiants/
+   Connexion :  admin@esgn.sn   /   Esgn@Admin2026
+   -> Va tout de suite dans "Paramètres" et change ce mot de passe.
+
+
+2. UTILISATION
+--------------
+- Tableau de bord : chiffres clés, inscriptions par mois, répartition par filière, inscriptions récentes.
+- Étudiants : liste avec recherche et filtres, ajout (avec inscription), modification, fiche, suppression.
+  Le matricule est généré automatiquement si on le laisse vide.
+- Inscriptions : liste filtrable (statut, classe, filière, année), ajout, modification, suppression.
+  Règle R2 : un étudiant ne peut avoir qu'une seule inscription active par année académique.
+- Classes et filières : consultation pour tous, création / modification / suppression pour l'administrateur.
+- Utilisateurs (administrateur) : création des comptes du service de la scolarité (règle R6).
+- Statistiques : par filière, par classe, par sexe, par statut ; liste des étudiants imprimable.
+
+Rôles
+- Administrateur : tout, y compris les utilisateurs, les classes et les filières.
+- Service de la scolarité : étudiants, inscriptions, statistiques (consultation des classes et filières).
+
+
+3. MISE EN LIGNE (HÉBERGEMENT)
+------------------------------
+a) Prends un hébergement avec PHP 7.4 ou plus récent et MySQL (ou MariaDB).
+b) Crée une base de données et un utilisateur MySQL dédié (pas "root") depuis le panneau de l'hébergeur.
+c) Importe sql/gestion_etudiants.sql dans cette base (supprime les 2 lignes
+   CREATE DATABASE et USE au début si l'hébergeur ne les autorise pas, et sélectionne ta base avant d'importer).
+d) Renseigne les identifiants dans config/database.php.
+e) Envoie tous les fichiers par FTP.
+f) Active le HTTPS (certificat gratuit chez la plupart des hébergeurs).
+g) Vérifie que le dossier uploads/photos est accessible en écriture.
+h) Change le mot de passe de l'administrateur.
+
+
+4. SÉCURITÉ INTÉGRÉE
+--------------------
+Mots de passe chiffrés, requêtes préparées (anti injection SQL), jeton CSRF sur tous les formulaires,
+actions sensibles en POST avec confirmation, limitation des tentatives de connexion,
+envoi de photos contrôlé (type, taille) et exécution de scripts interdite dans uploads/.

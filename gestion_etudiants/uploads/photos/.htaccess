@@ -1,0 +1,5 @@
+# Interdit l'exécution de scripts dans le dossier des photos
+<FilesMatch "\.(php|phtml|phar|php5|php7)$">
+    Require all denied
+</FilesMatch>
+Options -Indexes
